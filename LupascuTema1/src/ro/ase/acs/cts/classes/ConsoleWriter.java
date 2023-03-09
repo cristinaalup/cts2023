@@ -8,11 +8,13 @@ import java.sql.SQLException;
 public class ConsoleWriter implements IConsoleWriter {
     @Override
     public void displayResultSet(ResultSet resultSet) throws SQLException {
-        while(resultSet.next()) {
-            System.out.println("id: " + resultSet.getInt("id"));
-            System.out.println("name: " + resultSet.getString("name"));
-            System.out.println("address: " + resultSet.getString("address"));
-            System.out.println("salary: " + resultSet.getDouble("salary"));
+        String format = "id: %d, name: %s, address: %s, salary: %.2f%n";
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            String address = resultSet.getString("address");
+            double salary = resultSet.getDouble("salary");
+            System.out.printf(format, id, name, address, salary);
         }
         resultSet.close();
     }
